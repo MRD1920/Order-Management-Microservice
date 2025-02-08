@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	httpAddr = common.EnvString("HTTP_ADDR", ":8080")
+	httpAddr = common.EnvString("HTTP_ADDR", ":3000")
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	log.Printf("Starting HTTP server at %s", httpAddr)
 
 	if err := http.ListenAndServe(httpAddr, mux); err != nil {
-		log.Fatal("Faild to create a http server")
+		log.Fatal("Faild to create a http server: ", err)
 	}
 
 }

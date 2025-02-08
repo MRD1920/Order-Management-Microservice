@@ -1,0 +1,10 @@
+1. Golang cosmtrek/air for hot-reloading.
+2. gRPC for communication between services. // Needs brushup
+3. RabbitMQ as message broker. //Needs brushup. 
+4. Docker with docker compose for containerisation. 
+5. MongoDB for storage. 
+6. Jaeger for service tracing. //Something new. 
+7. HashiCorp's consul for service discovery. //Something new. 
+8. Stripe for payment. 
+
+//Used go workspaces for microservices. 
