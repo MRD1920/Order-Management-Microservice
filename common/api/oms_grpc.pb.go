@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrderManagement_CreateOrder_FullMethodName = "/oms.OrderManagement/CreateOrder"
+	OrderManagement_CreateOrder_FullMethodName = "/api.OrderManagement/CreateOrder"
 )
 
 // OrderManagementClient is the client API for OrderManagement service.
@@ -108,7 +108,7 @@ func _OrderManagement_CreateOrder_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var OrderManagement_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "oms.OrderManagement",
+	ServiceName: "api.OrderManagement",
 	HandlerType: (*OrderManagementServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
