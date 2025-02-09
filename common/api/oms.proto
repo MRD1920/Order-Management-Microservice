@@ -28,6 +28,6 @@ message Order {
     repeated Item Items = 4;
 }
 
-service OrderManagement {
+service OrderService {
     rpc CreateOrder(CreateOrderRequest) returns (Order);
 }
