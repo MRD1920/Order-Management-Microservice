@@ -13,6 +13,27 @@ import (
 	"github.com/mrd1920/oms-gateway/gateway"
 )
 
+// Flow Example
+// For a create order request:
+
+// 1. Client → Makes HTTP POST request to gateway
+// 2. HTTP Handler → Validates request and converts to internal format
+// 3. Gateway →
+// 		a. Uses Consul to find available order service instance
+// 		b. Establishes gRPC connection
+// 		c. Forwards request to service
+// 4. Order Service → Processes request and returns response
+// 5. Gateway → Converts gRPC response to HTTP
+// 6. Client → Receives HTTP response
+// ---------------------------------------------
+// Why Pass Registry to Gateway?
+// The gateway needs the registry to:
+
+// 1. Discover service instances dynamically
+// 2. Load balance between multiple instances
+// 3. Handle service failover
+// 4. Maintain up-to-date service endpoints
+
 var (
 	serviceName = "gateway"
 	httpAddr    = common.EnvString("HTTP_ADDR", ":3000")
