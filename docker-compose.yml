@@ -20,4 +20,4 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
-      RABBITMQ_DEFAULT_VHOST: /vhost
+      # RABBITMQ_DEFAULT_VHOST: /vhost
