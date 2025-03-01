@@ -9,6 +9,8 @@ import (
 	"github.com/mrd1920/oms-common/broker"
 	"github.com/mrd1920/oms-common/discovery"
 	"github.com/mrd1920/oms-common/discovery/consul"
+
+	"github.com/mrd1920/oms-payments/gateway"
 	stripeProcessor "github.com/mrd1920/oms-payments/processor/stripe"
 
 	"github.com/stripe/stripe-go/v78"
@@ -63,7 +65,8 @@ func main() {
 	}()
 
 	stripeprocessor := stripeProcessor.NewProcessor()
-	svc := NewService(stripeprocessor)
+	gateway := gateway.NewGateway(registry)
+	svc := NewService(stripeprocessor, gateway)
 	amqpConsumer := NewConsumer(svc)
 	amqpConsumer.Listen(channel)
 

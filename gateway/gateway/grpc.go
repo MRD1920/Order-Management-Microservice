@@ -25,7 +25,8 @@ func (g *Gateway) CreateOrder(ctx context.Context, req *pb.CreateOrderRequest) (
 		return nil, err
 	}
 
-	c := pb.NewOrderServiceClient(client)
+	// c := pb.NewOrderServiceClient(client)
+	c := pb.NewOrderManagementClient(client)
 
 	return c.CreateOrder(ctx, &pb.CreateOrderRequest{
 		CustomerID: req.CustomerID,

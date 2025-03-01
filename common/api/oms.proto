@@ -26,8 +26,16 @@ message Order {
     string customer_id = 2;
     string status = 3;
     repeated Item Items = 4;
+    string PaymentLink = 5;
+}
+
+message GetOrderRequest {
+    string OrderID = 1;
+    string CustomerID = 2;
 }
 
 service OrderManagement {
     rpc CreateOrder(CreateOrderRequest) returns (Order);
+    rpc UpdateOrder(Order) returns(Order);
+    rpc GetOrder(Order) returns (Order);
 }

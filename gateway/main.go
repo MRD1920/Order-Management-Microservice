@@ -73,7 +73,7 @@ func main() {
 	log.Printf("Starting HTTP server at %s", httpAddr)
 
 	if err := http.ListenAndServe(httpAddr, mux); err != nil {
-		log.Fatal("Faild to create a http server: ", err)
+		log.Fatal("Failed to create a http server: ", err)
 	}
 
 }

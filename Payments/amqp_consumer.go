@@ -44,6 +44,10 @@ func (c *consumer) Listen(ch *ampq.Channel) {
 			paymentLink, err := c.service.CreatePayment(context.Background(), o)
 			if err != nil {
 				log.Printf("Failed to create payment: %v", err)
+				if err := broker.HandleRetry(ch, &delivery); err != nil {
+					log.Printf("Error handling retry: %v", err)
+				}
+
 				continue
 			}
 

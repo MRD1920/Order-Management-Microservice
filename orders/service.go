@@ -17,20 +17,20 @@ func NewService(store OrdersStore) *service {
 }
 
 func (s *service) CreateOrder(ctx context.Context, p *pb.CreateOrderRequest) (*pb.Order, error) {
-	items, err := s.ValidateOrder(ctx, p);
+	items, err := s.ValidateOrder(ctx, p)
 	if err != nil {
-		return nil, err;
+		return nil, err
 	}
-	o:= &pb.Order{
-		Id: "42",
+	o := &pb.Order{
+		Id:         "42",
 		CustomerId: p.CustomerID,
-		Status: "pending",
-		Items: items,
+		Status:     "pending",
+		Items:      items,
 	}
-	return o, nil;
+	return o, nil
 }
 
-func (s *service) ValidateOrder(ctx context.Context, p *pb.CreateOrderRequest) ([]*pb.Item,error) {
+func (s *service) ValidateOrder(ctx context.Context, p *pb.CreateOrderRequest) ([]*pb.Item, error) {
 	if len(p.Items) == 0 {
 		return nil, common.ErrNoItems
 	}
@@ -66,4 +66,16 @@ func mergeItemsQuantities(items []*pb.ItemsWithQuantity) []*pb.ItemsWithQuantity
 		})
 	}
 	return merged
+}
+
+func (s *service) UpdateOrder(ctx context.Context, order *pb.Order) (*pb.Order, error) {
+	err := s.store.Update(ctx, order.Id, order)
+	if err != nil {
+		return nil, err
+	}
+	return order, nil
+}
+
+func (s *service) GetOrder(context.Context, *pb.Order) (*pb.Order, error) {
+	return nil, nil
 }

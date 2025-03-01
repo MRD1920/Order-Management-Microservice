@@ -12,7 +12,7 @@ import (
 )
 
 type grpcHandler struct {
-	pb.UnimplementedOrderServiceServer
+	pb.UnimplementedOrderManagementServer
 	service OrdersService
 	channel *amqp091.Channel
 }
@@ -20,7 +20,9 @@ type grpcHandler struct {
 func NewGrpcHandler(grpcServer *grpc.Server, service OrdersService, channel *amqp091.Channel) {
 
 	handler := &grpcHandler{service: service, channel: channel}
-	pb.RegisterOrderServiceServer(grpcServer, handler)
+
+	// pb.RegisterOrderServiceServer(grpcServer, handler)
+	pb.RegisterOrderManagementServer(grpcServer, handler)
 }
 
 // TODO: Implement the CreateOrder method of the OrderServiceServer interface from oms-common/api/oms_grpc.pb.go
@@ -29,9 +31,9 @@ func (h *grpcHandler) CreateOrder(ctx context.Context, payload *pb.CreateOrderRe
 
 	o, err := h.service.CreateOrder(ctx, payload)
 	if err != nil {
-		return nil, err;
+		return nil, err
 	}
-	
+
 	// o := &pb.Order{
 	// 	Id: "123",
 	// }
@@ -50,5 +52,27 @@ func (h *grpcHandler) CreateOrder(ctx context.Context, payload *pb.CreateOrderRe
 		Body:         marshalledOrder,
 		DeliveryMode: amqp091.Persistent,
 	})
+	return o, nil
+}
+
+func (h *grpcHandler) GetOrder(ctx context.Context, payload *pb.Order) (*pb.Order, error) {
+	log.Printf("Get order received! Order %v", payload)
+
+	o, err := h.service.GetOrder(ctx, payload)
+	if err != nil {
+		return nil, err
+	}
+
+	return o, nil
+}
+
+func (h *grpcHandler) UpdateOrder(ctx context.Context, payload *pb.Order) (*pb.Order, error) {
+	log.Printf("Update order received! Order %v", payload)
+
+	o, err := h.service.UpdateOrder(ctx, payload)
+	if err != nil {
+		return nil, err
+	}
+
 	return o, nil
 }
